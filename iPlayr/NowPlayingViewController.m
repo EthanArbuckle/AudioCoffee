@@ -123,28 +123,6 @@ UIPageControl *pageControl;
     // [self.view addSubview:scrollView1];
 }
 
-/*- (void)scrollViewDidScroll:(UIScrollView *)sender {
-    CGFloat pageWidth = scrollView1.frame.size.width;
-    int page = floor((scrollView1.contentOffset.x - pageWidth / 2) / pageWidth) + 1;
-    pageControl.currentPage = page;
-    [self loadScrollViewWithPage:page - 1];
-    [self loadScrollViewWithPage:page];
-    [self loadScrollViewWithPage:page + 1];
-   }
-
-   - (void)loadScrollViewWithPage:(int)page {
-    if (page < 0) return;
-    if (page >= kNumPages) return;
-        CGRect frame = scrollView1.frame;
-        frame.origin.x = frame.size.width * page;
-        frame.origin.y = 0;
-    UIImageView *view = [[UIImageView alloc] initWithFrame:frame];
-    [view setImage:[self albumCover:[mediaItems objectAtIndex:arc4random()%[songUrls count]]]];
-    UIView *view2 = [[UIView alloc] init];
-    view2.backgroundColor = [UIColor redColor];
-        [scrollView1 addSubview:view2];
-   } */
-
 - (UIImage *)albumCover:(MPMediaItem *)mediaItem {
     [self updateLockscreen];
     MPMediaItemArtwork *artwork = [mediaItem valueForProperty:MPMediaItemPropertyArtwork];
@@ -334,4 +312,25 @@ UIPageControl *pageControl;
     }
 }
 
+/*- (void)scrollViewDidScroll:(UIScrollView *)sender {
+ CGFloat pageWidth = scrollView1.frame.size.width;
+ int page = floor((scrollView1.contentOffset.x - pageWidth / 2) / pageWidth) + 1;
+ pageControl.currentPage = page;
+ [self loadScrollViewWithPage:page - 1];
+ [self loadScrollViewWithPage:page];
+ [self loadScrollViewWithPage:page + 1];
+ }
+ 
+ - (void)loadScrollViewWithPage:(int)page {
+ if (page < 0) return;
+ if (page >= kNumPages) return;
+ CGRect frame = scrollView1.frame;
+ frame.origin.x = frame.size.width * page;
+ frame.origin.y = 0;
+ UIImageView *view = [[UIImageView alloc] initWithFrame:frame];
+ [view setImage:[self albumCover:[mediaItems objectAtIndex:arc4random()%[songUrls count]]]];
+ UIView *view2 = [[UIView alloc] init];
+ view2.backgroundColor = [UIColor redColor];
+ [scrollView1 addSubview:view2];
+ } */
 @end

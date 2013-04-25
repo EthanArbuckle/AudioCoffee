@@ -188,7 +188,7 @@ int tag = 0;
         tag = 3;
         [query setGroupingType:MPMediaGroupingAlbum];
     } else {
-        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Not Implemented" message:@"Playlists are not ready and have been disabled. Sorry" delegate:self cancelButtonTitle:@"Ok" otherButtonTitles:nil, nil];
+        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Not Implemented" message:@"Playlists are not ready and have been disabled. Sorry!" delegate:self cancelButtonTitle:@"Ok" otherButtonTitles:nil, nil];
         [alert show];
         [query setGroupingType:MPMediaGroupingTitle];
     }
