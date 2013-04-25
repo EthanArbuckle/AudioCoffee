@@ -66,6 +66,7 @@ UIPageControl *pageControl;
     appd.avPlayer = [[AVAudioPlayer alloc] init];
     (void)[appd.avPlayer initWithContentsOfURL:firstSong error:nil];
     appd.avPlayer.delegate = self;
+    [[AVAudioSession sharedInstance] setDelegate:self];
     [[AVAudioSession sharedInstance] setCategory:AVAudioSessionCategoryPlayback error:nil];
     [[AVAudioSession sharedInstance] setActive:YES error:nil];
     [[UIApplication sharedApplication] beginReceivingRemoteControlEvents];
@@ -312,25 +313,41 @@ UIPageControl *pageControl;
     }
 }
 
-/*- (void)scrollViewDidScroll:(UIScrollView *)sender {
- CGFloat pageWidth = scrollView1.frame.size.width;
- int page = floor((scrollView1.contentOffset.x - pageWidth / 2) / pageWidth) + 1;
- pageControl.currentPage = page;
- [self loadScrollViewWithPage:page - 1];
- [self loadScrollViewWithPage:page];
- [self loadScrollViewWithPage:page + 1];
- }
- 
- - (void)loadScrollViewWithPage:(int)page {
- if (page < 0) return;
- if (page >= kNumPages) return;
- CGRect frame = scrollView1.frame;
- frame.origin.x = frame.size.width * page;
- frame.origin.y = 0;
- UIImageView *view = [[UIImageView alloc] initWithFrame:frame];
- [view setImage:[self albumCover:[mediaItems objectAtIndex:arc4random()%[songUrls count]]]];
- UIView *view2 = [[UIView alloc] init];
- view2.backgroundColor = [UIColor redColor];
- [scrollView1 addSubview:view2];
- } */
+/*void audioRouteChangeListenerCallback(void *inUserData, AudioSessionPropertyID inPropertyID, UInt32 inPropertyValueSize, const void *inPropertyValue) {
+    if (inPropertyID != kAudioSessionProperty_AudioRouteChange) return;
+    {
+        CFDictionaryRef routeChangeDictionary = (CFDictionaryRef)inPropertyValue;
+        CFNumberRef routeChangeReasonRef = (CFNumberRef)CFDictionaryGetValue(routeChangeDictionary, CFSTR(kAudioSession_AudioRouteChangeKey_Reason) );
+        SInt32 routeChangeReason;
+        CFNumberGetValue(routeChangeReasonRef, kCFNumberSInt32Type, &routeChangeReason);
+        if (routeChangeReason == kAudioSessionRouteChangeReason_OldDeviceUnavailable) {
+            NSLog(@"plugged out");
+        } else if (routeChangeReason == kAudioSessionRouteChangeReason_NewDeviceAvailable) {
+            //Handle Headset plugged in
+            NSLog(@"plugged in");
+        }
+    }
+}
+
+- (void)scrollViewDidScroll:(UIScrollView *)sender {
+   CGFloat pageWidth = scrollView1.frame.size.width;
+   int page = floor((scrollView1.contentOffset.x - pageWidth / 2) / pageWidth) + 1;
+   pageControl.currentPage = page;
+   [self loadScrollViewWithPage:page - 1];
+   [self loadScrollViewWithPage:page];
+   [self loadScrollViewWithPage:page + 1];
+   }
+
+   - (void)loadScrollViewWithPage:(int)page {
+   if (page < 0) return;
+   if (page >= kNumPages) return;
+   CGRect frame = scrollView1.frame;
+   frame.origin.x = frame.size.width * page;
+   frame.origin.y = 0;
+   UIImageView *view = [[UIImageView alloc] initWithFrame:frame];
+   [view setImage:[self albumCover:[mediaItems objectAtIndex:arc4random()%[songUrls count]]]];
+   UIView *view2 = [[UIView alloc] init];
+   view2.backgroundColor = [UIColor redColor];
+   [scrollView1 addSubview:view2];
+   } */
 @end
