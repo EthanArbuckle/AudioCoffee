@@ -95,14 +95,16 @@ UIPageControl *pageControl;
     self.navigationItem.titleView = label;
     [DAAnisotropicImage startAnisotropicUpdatesWithHandler:^(UIImage *image) {
         [_duration setThumbImage:image forState:UIControlStateNormal];
-        /*   NSArray *tempArray = volumeViewSlider.subviews; //Adds reflective button to volume slider
-           for (id current in tempArray) {
-               if ([current isKindOfClass:[UISlider class]]) {
-                   UISlider *tempSlider = (UISlider *)current;
-                   [tempSlider setThumbImage:image forState:UIControlStateNormal];
-               }
-           } */
     }];
+    UIImage *initialImage = [DAAnisotropicImage imageFromAccelerometerData:nil];
+    NSArray *tempArray = volumeViewSlider.subviews; //Adds reflective button to volume slider
+    for (id current in tempArray) {
+        if ([current isKindOfClass:[UISlider class]]) {
+            UISlider *tempSlider = (UISlider *)current;
+            [tempSlider setThumbImage:initialImage forState:UIControlStateNormal];
+            [tempSlider setThumbImage:initialImage forState:UIControlStateHighlighted];
+        }
+    }
     /*  CGRect fullScreenRect = CGRectMake(50, 50, 200, 200);
        scrollView1 = [[UIScrollView alloc] initWithFrame:fullScreenRect];
        //scrollView1.contentSize = CGSizeMake(200 * kNumPages, 200);
@@ -141,7 +143,7 @@ UIPageControl *pageControl;
     UIView *view2 = [[UIView alloc] init];
     view2.backgroundColor = [UIColor redColor];
         [scrollView1 addSubview:view2];
-   }*/
+   } */
 
 - (UIImage *)albumCover:(MPMediaItem *)mediaItem {
     [self updateLockscreen];
